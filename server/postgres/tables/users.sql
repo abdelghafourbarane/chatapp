@@ -1,0 +1,10 @@
+BEGIN TRANSACTION;
+
+CREATE TABLE users(
+    id uuid PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email text UNIQUE NOT NULL,
+    joined TIMESTAMP NOT NULL 
+);
+
+COMMIT;
