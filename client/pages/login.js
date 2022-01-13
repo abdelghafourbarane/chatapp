@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { TextField } from "@material-ui/core";
@@ -8,23 +9,41 @@ import { TextField } from "@material-ui/core";
 import styles from "../styles/login.module.scss";
 import CustomButton from "../components/custom-button/CustomButton";
 
-import { useLoginRequest } from "../hooks/requests";
+import { useLoginRequest, useGetUserRequest } from "../hooks/requests";
+import { UserContext } from "../context/user/user.context";
+import { signInSuccess } from "../context/user/user.actions";
 
 function Login() {
+  // controled login field
   const [usernameField, setUsernameField] = useState("");
   const [passwordField, setPasswordField] = useState("");
+
+  // extract dispatch function from context
+  const { dispatch, state } = useContext(UserContext);
+
+  // the router will be used to redirect user after success signin
+  const router = useRouter();
 
   const handleUsernameChange = (event) => {
     setUsernameField(event.target.value);
   };
-
   const handlePasswordChange = (event) => {
     setPasswordField(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    useLoginRequest(usernameField, passwordField);
+    useLoginRequest(usernameField, passwordField)
+      .then((token) => {
+        useGetUserRequest().then(({ data }) => {
+          dispatch(signInSuccess(data));
+          console.log(state);
+          router.push("/room");
+        });
+      })
+      .catch((err) => {
+        console.log("error: ", err);
+      });
   };
 
   return (

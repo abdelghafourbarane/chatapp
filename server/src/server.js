@@ -6,6 +6,8 @@ const dotenv = require("dotenv");
 
 const loginRoutes = require("./routes/login/login.routes");
 const registerRoutes = require("./routes/register/register.routes");
+const { requireAuth } = require("./controllers/requireAuth");
+const { profileRouter } = require("./routes/profile/profile.routes");
 
 dotenv.config();
 
@@ -24,6 +26,7 @@ app.use(bodyParser.json());
 
 app.use("/login", loginRoutes);
 app.use("/register", registerRoutes);
+app.use("/profile", requireAuth, profileRouter);
 
 app.listen(PORT, () => {
   console.log("backend listening on PORT : ", PORT);
