@@ -27,6 +27,14 @@
     }
   }
 
+  &.green {
+    background-color: var(--primary-green-color);
+    border-color: var(--primary-green-color);
+    &:hover {
+      color: var(--primary-green-color);
+    }
+  }
+
   &:hover {
     background-color: var(--background-white-color);
     box-shadow: none;

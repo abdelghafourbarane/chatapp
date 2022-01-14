@@ -7,7 +7,8 @@ const requireAuth = (req, res, next) => {
   }
   return redisClient
     .get(authorization)
-    .then(() => {
+    .then((userId) => {
+      req.userId = userId;
       console.log("You shall pass");
       return next();
     })
