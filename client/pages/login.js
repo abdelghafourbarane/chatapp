@@ -19,7 +19,7 @@ function Login() {
   const [passwordField, setPasswordField] = useState("");
 
   // extract dispatch function from context
-  const { dispatch, state } = useContext(UserContext);
+  const { dispatch } = useContext(UserContext);
 
   // the router will be used to redirect user after success signin
   const router = useRouter();
@@ -37,7 +37,6 @@ function Login() {
       .then((token) => {
         useGetUserRequest().then(({ data }) => {
           dispatch(signInSuccess(data));
-          console.log(state);
           router.push("/room");
         });
       })
@@ -77,9 +76,6 @@ function Login() {
             name="username"
             variant="outlined"
             label="Username"
-            InputProps={{
-              className: styles.input_mui,
-            }}
             value={usernameField}
             onChange={(event) => {
               handleUsernameChange(event);
@@ -90,9 +86,6 @@ function Login() {
             variant="outlined"
             label="Password"
             type="password"
-            InputProps={{
-              className: styles.input_mui,
-            }}
             value={passwordField}
             onChange={handlePasswordChange}
           />

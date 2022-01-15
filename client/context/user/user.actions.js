@@ -19,3 +19,9 @@ export const signInStart = () => {
     type: userTypes.SIGN_IN_START,
   };
 };
+
+export const signOutSuccess = () => {
+  return {
+    type: userTypes.SIGN_OUT_SUCCESS,
+  };
+};

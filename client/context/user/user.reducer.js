@@ -26,6 +26,13 @@ export const UserReducer = (state, action) => {
         error: action.payload,
         loading: false,
       };
+
+    case userTypes.SIGN_OUT_SUCCESS: {
+      return {
+        ...state,
+        user: null,
+      };
+    }
     default:
       return state;
   }

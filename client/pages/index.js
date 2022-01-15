@@ -1,8 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useRouter } from "next/router";
+
+import { useGetUserRequest } from "../hooks/requests";
+import { UserContext } from "../context/user/user.context";
+import { signInSuccess } from "../context/user/user.actions";
 
 import CustomButton from "../components/custom-button/CustomButton";
 import Spinner from "../components/spinner/Spinner";
@@ -10,17 +14,27 @@ import Spinner from "../components/spinner/Spinner";
 import styles from "../styles/Home.module.scss";
 
 export default function Home() {
-  const [loginCheck, setLoginCheck] = useState(false);
+  const [loginCheck, setLoginCheck] = useState(true);
+
+  const { dispatch } = useContext(UserContext);
 
   const router = useRouter();
 
-  // useEffect(async () => {
-  //   if (window.localStorage.getItem("token")) {
-  //     router.push("/room");
-  //   } else {
-  //     setLoginCheck(false);
-  //   }
-  // }, []);
+  // Check if the user is already signed in
+  useEffect(async () => {
+    if (window.localStorage.getItem("token")) {
+      useGetUserRequest()
+        .then(({ data }) => {
+          dispatch(signInSuccess(data));
+          router.push("/room");
+        })
+        .catch((err) => {
+          setLoginCheck(false);
+        });
+    } else {
+      setLoginCheck(false);
+    }
+  }, []);
 
   return (
     <div>

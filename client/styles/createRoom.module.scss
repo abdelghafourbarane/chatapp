@@ -1,0 +1,31 @@
+.create_room_page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100vh;
+
+  .main_container {
+    flex: 1;
+    display: flex;
+    // justify-content: center;
+    // align-items: center;
+
+    .inputs_container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      width: 30vw;
+      margin: auto;
+      gap: 1rem;
+
+      .text_field {
+        width: 100%;
+      }
+
+      .button_icon {
+        font-size: 2rem;
+      }
+    }
+  }
+}

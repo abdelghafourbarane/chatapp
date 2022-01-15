@@ -50,3 +50,22 @@ export const useGetUserRequest = () => {
       });
   });
 };
+
+export const useUserLogout = () => {
+  const token = window.localStorage.getItem("token");
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(`${API_URI}/login`, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: token,
+        },
+      })
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};

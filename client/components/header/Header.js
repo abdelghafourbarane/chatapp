@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
+import router from "next/router";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+
+import { useUserLogout } from "../../hooks/requests";
+import { UserContext } from "../../context/user/user.context";
+import { signOutSuccess } from "../../context/user/user.actions";
 
 import styles from "./Header.module.scss";
 
-function Header({ username, email }) {
+function Header() {
+  const { state, dispatch } = useContext(UserContext);
+
+  const handleLogoutClick = () => {
+    useUserLogout().then(() => {
+      window.localStorage.removeItem("token");
+      dispatch(signOutSuccess);
+      router.push("/");
+    });
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.image_wrapper}>
@@ -25,10 +40,13 @@ function Header({ username, email }) {
               className={styles.avatar_image}
             />
           </div>
-          <span className={styles.username}>{username}</span>
-          <span className={styles.email}>{email}</span>
+          <span className={styles.username}>{state.user.username}</span>
+          <span className={styles.email}>{state.user.email}</span>
         </div>
-        <ExitToAppIcon className={styles.logout_icon} />
+        <ExitToAppIcon
+          className={styles.logout_icon}
+          onClick={handleLogoutClick}
+        />
       </div>
     </header>
   );

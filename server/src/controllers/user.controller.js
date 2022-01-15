@@ -59,6 +59,22 @@ const handleUserLogin = (req, res, bcrypt) => {
     });
 };
 
+const handleUserLogout = (req, res) => {
+  const { authorization } = req.headers;
+  if (authorization) {
+    return redisClient
+      .del(authorization)
+      .then(() => {
+        return res.status(204).json("loged out successfully");
+      })
+      .catch((err) => {
+        return res.status(400).json("An error occured during logout operation");
+      });
+  } else {
+    return res.status(400).json("An error occured during logout operation");
+  }
+};
+
 const signToken = (payload) => {
   return jwt.sign(payload, process.env.JWT_SECRET);
 };
@@ -81,4 +97,5 @@ const saveAuthToken = (user) => {
 module.exports = {
   handleUserRegister,
   handleUserLogin,
+  handleUserLogout,
 };
