@@ -1,12 +1,12 @@
 import { userTypes } from "./user.types";
 
-export const initialState = {
+export const INITIAL_STATE = {
   user: {},
   loading: false,
   error: null,
 };
 
-export const UserReducer = (state, action) => {
+export const UserReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case userTypes.SIGN_IN_START:
       return {

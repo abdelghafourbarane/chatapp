@@ -19,7 +19,7 @@ function Login() {
   const [passwordField, setPasswordField] = useState("");
 
   // extract dispatch function from context
-  const { dispatch } = useContext(UserContext);
+  const { userDispatch } = useContext(UserContext);
 
   // the router will be used to redirect user after success signin
   const router = useRouter();
@@ -36,7 +36,7 @@ function Login() {
     useLoginRequest(usernameField, passwordField)
       .then((token) => {
         useGetUserRequest().then(({ data }) => {
-          dispatch(signInSuccess(data));
+          userDispatch(signInSuccess(data));
           router.push("/room");
         });
       })

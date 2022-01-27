@@ -1,15 +1,15 @@
 import { createContext, useReducer, useMemo } from "react";
 
-import { UserReducer, initialState } from "./user.reducer";
+import { UserReducer, INITIAL_STATE } from "./user.reducer";
 
 export const UserContext = createContext();
 
 export function UserContextWrapper({ children }) {
-  const [state, dispatch] = useReducer(UserReducer, initialState);
+  const [userState, userDispatch] = useReducer(UserReducer, INITIAL_STATE);
 
   const userContextValue = useMemo(() => {
-    return { state, dispatch };
-  }, [state, dispatch]);
+    return { userState, userDispatch };
+  }, [userState, userDispatch]);
 
   return (
     <UserContext.Provider value={userContextValue}>

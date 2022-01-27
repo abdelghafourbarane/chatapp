@@ -1,6 +1,7 @@
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 
 import { UserContextWrapper } from "../context/user/user.context";
+import { RoomsContextWrapper } from "../context/rooms/rooms.context";
 
 import "../styles/globals.css";
 
@@ -19,7 +20,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <MuiThemeProvider theme={theme}>
       <UserContextWrapper>
-        <Component {...pageProps} />
+        <RoomsContextWrapper>
+          <Component {...pageProps} />
+        </RoomsContextWrapper>
       </UserContextWrapper>
     </MuiThemeProvider>
   );

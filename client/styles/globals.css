@@ -24,9 +24,13 @@ button {
 :root {
   --background-white-color: #fafafa;
   --primary-blue-color: #4e95a6;
+  --secondary-blue-color: #2c7bbf;
   --primary-red-color: #f28177;
   --primary-green-color: #7cd9b7;
+  --secondary-green-color: #b5e0d7;
   --text-black: #262022;
   --text-dark-gray: #58555a;
   --text-white-color: #fafafa;
+  --border-gray-color: #c4c4c4;
+  --hover-gray-color: #e8e8db;
 }

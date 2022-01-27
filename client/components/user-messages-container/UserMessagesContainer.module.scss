@@ -1,0 +1,47 @@
+.user_messages_container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  .profile_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    .avatar_wrapper {
+      height: 2.5rem;
+      width: 2.5rem;
+    }
+    .username {
+      font-size: 0.8rem;
+      color: var(--text-black);
+    }
+  }
+  .messages_list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+    max-width: 70%;
+    .message_container {
+      border-radius: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: var(--secondary-green-color);
+      .message_content {
+        color: var(--text-black);
+      }
+    }
+  }
+}
+
+.current_messages_container {
+  flex-direction: row-reverse;
+  .messages_list {
+    align-items: flex-end;
+    .message_container {
+      background-color: var(--secondary-blue-color);
+      .message_content {
+        color: var(--text-white-color);
+      }
+    }
+  }
+}

@@ -16,7 +16,7 @@ import styles from "../styles/Home.module.scss";
 export default function Home() {
   const [loginCheck, setLoginCheck] = useState(true);
 
-  const { dispatch } = useContext(UserContext);
+  const { userDispatch } = useContext(UserContext);
 
   const router = useRouter();
 
@@ -25,7 +25,7 @@ export default function Home() {
     if (window.localStorage.getItem("token")) {
       useGetUserRequest()
         .then(({ data }) => {
-          dispatch(signInSuccess(data));
+          userDispatch(signInSuccess(data));
           router.push("/room");
         })
         .catch((err) => {

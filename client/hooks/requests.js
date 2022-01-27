@@ -69,3 +69,73 @@ export const useUserLogout = () => {
       });
   });
 };
+
+export const useRoomCreateRequest = (room_name) => {
+  const token = window.localStorage.getItem("token");
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        `${API_URI}/rooms`,
+        {
+          room_name,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: token,
+          },
+        }
+      )
+      .then((room) => {
+        resolve(room);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export const useGetRoomsRequest = () => {
+  const token = window.localStorage.getItem("token");
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${API_URI}/rooms`, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: token,
+        },
+      })
+      .then((rooms) => {
+        resolve(rooms);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export const useAddMessageRequest = (room_id, content) => {
+  const token = window.localStorage.getItem("token");
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        `${API_URI}/messages`,
+        {
+          room_id: room_id,
+          content: content,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: token,
+          },
+        }
+      )
+      .then((message) => {
+        resolve(message.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};

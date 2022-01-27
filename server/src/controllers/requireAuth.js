@@ -9,20 +9,11 @@ const requireAuth = (req, res, next) => {
     .get(authorization)
     .then((userId) => {
       req.userId = userId;
-      console.log("You shall pass");
       return next();
     })
     .catch((err) => {
       return res.status(401).json("Unauthorized by redis");
     });
-  //   , (err, reply) => {
-  //   if (err || !reply) {
-  //     return res.status(401).json("Unauthorized by redis");
-  //   }
-
-  //   console.log("You shall pass");
-  //   return next();
-  // });
 };
 
 module.exports = {

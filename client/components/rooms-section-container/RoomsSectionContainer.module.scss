@@ -1,0 +1,8 @@
+.rooms_container {
+  width: 20vw;
+  border: solid 1px var(--border-gray-color);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: inherit;
+}

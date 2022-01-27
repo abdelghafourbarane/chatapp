@@ -1,0 +1,25 @@
+.messanger_page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100vh;
+  box-sizing: border-box;
+
+  .main_container {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    padding: 2rem 4rem;
+    overflow-y: hidden;
+    gap: 4rem;
+
+    .rooms_container {
+      width: 20vw;
+      border: solid 1px var(--border-gray-color);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      max-height: inherit;
+    }
+  }
+}

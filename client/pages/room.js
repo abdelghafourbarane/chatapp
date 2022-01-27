@@ -13,11 +13,11 @@ import CustomButton from "../components/custom-button/CustomButton";
 import styles from "../styles/room.module.scss";
 
 function Room() {
-  const { dispatch } = useContext(UserContext);
+  const { userDispatch } = useContext(UserContext);
 
   useEffect(() => {
     useGetUserRequest().then((user) => {
-      dispatch(signInSuccess(user.data));
+      userDispatch(signInSuccess(user.data));
     });
   }, []);
 

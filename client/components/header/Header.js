@@ -10,12 +10,15 @@ import { signOutSuccess } from "../../context/user/user.actions";
 import styles from "./Header.module.scss";
 
 function Header() {
-  const { state, dispatch } = useContext(UserContext);
+  const {
+    userState: { user },
+    userDispatch,
+  } = useContext(UserContext);
 
   const handleLogoutClick = () => {
     useUserLogout().then(() => {
       window.localStorage.removeItem("token");
-      dispatch(signOutSuccess);
+      userDispatch(signOutSuccess);
       router.push("/");
     });
   };
@@ -40,8 +43,8 @@ function Header() {
               className={styles.avatar_image}
             />
           </div>
-          <span className={styles.username}>{state.user.username}</span>
-          <span className={styles.email}>{state.user.email}</span>
+          <span className={styles.username}>{user.username}</span>
+          <span className={styles.email}>{user.email}</span>
         </div>
         <ExitToAppIcon
           className={styles.logout_icon}
