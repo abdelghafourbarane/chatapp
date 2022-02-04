@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState, useCallback } from "react";
+import React, { useEffect, useContext, useState } from "react";
 
 import { socket } from "../hooks/socket";
 
@@ -22,51 +22,41 @@ import { useGetRoomsRequest, useGetUserRequest } from "../hooks/requests";
 
 import styles from "../styles/messanger.module.scss";
 
-// if (socket) {
-//   console.log("socket id", socket.id);
-//   socket.on("connectedToRoom", (data) => {
-//     console.log("data sent by room server", data);
-//   });
-// } else {
-//   console.log("socket is null");
-// }
-
 function Messanger() {
+  //retrieving contexts states and dispatchers
   const {
     userDispatch,
     userState: { user },
   } = useContext(UserContext);
-
   const {
     roomsState: { rooms },
     roomsDispatcher,
   } = useContext(RoomsContext);
 
+  //room to show in the messages section and
+  const [roomClicked, setRoomClicked] = useState(null);
+  //messages to pass as props to MessagesSection component
+  const [messagesToShow, setMessagesToShow] = useState([]);
+
+  //dispatch new message to context whenever a message is received
   useEffect(() => {
     socket.on("newMessage", (data) => {
       roomsDispatcher(addMessageToRoomSuccess(data.room_id, data.message));
-      console.log("data sent by server socket :", data);
     });
     return () => socket.disconnect();
   }, [socket]);
-
-  const [roomClicked, setRoomClicked] = useState(null);
-  const [messagesToShow, setMessagesToShow] = useState([]);
 
   const handleRoomClick = (room_id) => {
     setRoomClicked(room_id);
   };
 
+  //executed whenenver a room is clicked on RoomsSection component
   useEffect(() => {
     if (roomClicked) {
       const roomToShow = rooms.find((room) => room.room_id === roomClicked);
       setMessagesToShow(roomToShow.messages);
     }
   }, [roomClicked, rooms]);
-
-  // useEffect(() => {
-  //   socket.emit("create", roomClicked);
-  // }, [roomClicked]);
 
   //initialize rooms context when messanger page mounts for the first time
   useEffect(() => {

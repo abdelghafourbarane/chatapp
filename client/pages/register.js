@@ -1,15 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { TextField } from "@material-ui/core";
 
-import styles from "../styles/register.module.scss";
 import CustomButton from "../components/custom-button/CustomButton";
-import { useRegisterRequest } from "../hooks/requests";
+import Spinner from "../components/spinner/Spinner";
+
+import { useRegisterRequest, useGetUserRequest } from "../hooks/requests";
+
+import styles from "../styles/register.module.scss";
 
 function Register() {
+  const router = useRouter();
+  //Check user login
+  const [loginCheck, setLoginCheck] = useState(true);
+  useEffect(() => {
+    useGetUserRequest()
+      .then((user) => {
+        router.push("/room");
+      })
+      .catch((err) => {
+        setLoginCheck(false);
+      });
+  }, []);
+  //controlled inputs for register form
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,15 +35,12 @@ function Register() {
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
-
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
-
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-
   const handleRetypedPasswordChange = (event) => {
     setRetypedPassword(event.target.value);
   };
@@ -36,8 +50,9 @@ function Register() {
     useRegisterRequest(username, email, password);
   };
 
-  console.log(username);
-  return (
+  return loginCheck ? (
+    <Spinner />
+  ) : (
     <form onSubmit={handleSubmitClick}>
       <main className={styles.main_container}>
         <div>
