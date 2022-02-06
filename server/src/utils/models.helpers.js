@@ -4,6 +4,9 @@
 const prepareMessagesList = (messages_list) => {
   const listToReturn = [];
   let last_index = 0;
+  if (messages_list === undefined || messages_list === null) {
+    return listToReturn;
+  }
   for (let i = 0; i < messages_list.length; i++) {
     if (i === 0) {
       listToReturn.push({
