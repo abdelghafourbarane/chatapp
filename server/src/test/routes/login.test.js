@@ -1,5 +1,6 @@
 const request = require("supertest");
-const { redisClient } = require("../../services/redis");
+// const { redisClient } = require("../../services/redis");
+const Redis = require("ioredis-mock");
 
 const { app } = require("../../app");
 
@@ -11,13 +12,17 @@ describe("test login service", () => {
 
   let server = null;
   beforeAll((done) => {
-    server = app.listen(4000);
-    done();
+    server = app.listen(4000, done);
   });
 
-  afterAll(async () => {
-    await redisClient.quit();
-    await server.close();
+  // afterEach((done) => {
+  //   new Redis().flushall().then(() => done());
+  // });
+
+  afterAll((done) => {
+    //   redisClient.quit();
+    server.close(done);
+    //   done();
   });
 
   it("should respond with token object", (done) => {
