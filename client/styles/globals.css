@@ -33,4 +33,6 @@ button {
   --text-white-color: #fafafa;
   --border-gray-color: #c4c4c4;
   --hover-gray-color: #e8e8db;
+  --danger-color: #ea2626;
+  --success-color: #4bb543;
 }

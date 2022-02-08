@@ -1,0 +1,101 @@
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .modal_container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-white-color);
+    width: 30%;
+
+    border-radius: 0.5rem;
+    overflow: hidden;
+    &.error {
+      .top_container {
+        background-color: var(--danger-color);
+      }
+    }
+    &.success {
+      .top_container {
+        background-color: var(--success-color);
+      }
+    }
+    .top_container {
+      //   height: 4rem;
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      padding: 0.5rem;
+      align-items: center;
+      gap: 0.5rem;
+
+      .close_icon {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        color: rgba(255, 255, 255, 0.6);
+        cursor: pointer;
+        &:hover {
+          color: #fafafa;
+        }
+      }
+
+      .icon_title {
+        color: #fafafa;
+        font-size: 3rem;
+      }
+      .title {
+        font-size: 1.5rem;
+        color: #fafafa;
+      }
+    }
+    .middle_container {
+      min-height: 6rem;
+      display: flex;
+      align-items: center;
+      padding: 1rem 0.5rem;
+      span {
+        color: var(--text-black);
+      }
+    }
+    .line {
+      height: 1px;
+      background-color: #c4c4c4;
+    }
+    .bottom_container {
+      min-height: 3rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: right;
+      align-items: center;
+      padding: 1rem;
+      //   padding: 1rem;
+
+      button {
+        display: inline-block;
+        outline: 0;
+        cursor: pointer;
+        padding: 5px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        vertical-align: middle;
+        border: 1px solid;
+        border-radius: 6px;
+        color: #24292e;
+        background-color: #fafbfc;
+        border-color: #1b1f2326;
+        box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px,
+          rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
+        transition: 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+        transition-property: color, background-color, border-color;
+        &:hover {
+          background-color: #f3f4f6;
+          border-color: #1b1f2326;
+          transition-duration: 0.1s;
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import Image from "next/image";
 import router from "next/router";
+import Link from "next/link";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import { useUserLogout } from "../../hooks/requests";
@@ -25,14 +26,19 @@ function Header() {
 
   return (
     <header className={styles.header}>
-      <div className={styles.image_wrapper}>
-        <Image
-          src="/static/chat.png"
-          height={512}
-          width={512}
-          className={styles.chat_image}
-        />
-      </div>
+      <Link href="/">
+        <a>
+          <div className={styles.image_wrapper}>
+            <Image
+              src="/static/chat.png"
+              height={512}
+              width={512}
+              className={styles.chat_image}
+            />
+          </div>
+        </a>
+      </Link>
+
       <div className={styles.profile_container}>
         <div className={styles.avatar_container}>
           <div className={styles.avatar_wrapper}>

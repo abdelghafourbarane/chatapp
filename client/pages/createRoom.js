@@ -13,6 +13,7 @@ import { useRoomCreateRequest, useGetUserRequest } from "../hooks/requests";
 import { signInSuccess } from "../context/user/user.actions";
 
 import styles from "../styles/createRoom.module.scss";
+import CustomModal from "../components/custom-modal/CustomModal";
 
 function CreateRoom() {
   const { userDispatch } = useContext(UserContext);
@@ -36,13 +37,38 @@ function CreateRoom() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    useRoomCreateRequest(roomNameField).then((room) => {});
+    useRoomCreateRequest(roomNameField)
+      .then((room) => {
+        setRoomNameField("");
+        setModalType("success");
+        setModalMessage("Room created successfully");
+        setOpenedModal(true);
+      })
+      .catch((err) => {
+        setModalType("error");
+        setModalMessage(err.response.data.errMessage);
+        setOpenedModal(true);
+      });
   };
+
+  const handleCloseModal = () => {
+    setOpenedModal(false);
+  };
+
+  const [openedModal, setOpenedModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalType, setModalType] = useState("");
 
   return loginCheck ? (
     <Spinner />
   ) : (
     <div className={styles.create_room_page}>
+      <CustomModal
+        type={modalType}
+        open={openedModal}
+        handleCloseModal={handleCloseModal}
+        message={modalMessage}
+      />
       <Header />
       <div className={styles.main_container}>
         <form
