@@ -1,4 +1,8 @@
-const { createRoom, getRoomsWithMessages } = require("../../models/room.model");
+const {
+  createRoom,
+  getRoomsWithMessages,
+  deleteRoom,
+} = require("../../models/room.model");
 
 const handleRoomAdd = (req, res) => {
   const { userId } = req;
@@ -28,7 +32,19 @@ const handleGetRoomsWithMessages = (req, res) => {
     });
 };
 
+const handleRoomDelete = (req, res) => {
+  const { room_id } = req.query;
+  deleteRoom(room_id)
+    .then((room) => {
+      res.status(200).json(room);
+    })
+    .catch((err) => {
+      res.status(400).json("An error occured during room deletion");
+    });
+};
+
 module.exports = {
   handleRoomAdd,
   handleGetRoomsWithMessages,
+  handleRoomDelete,
 };

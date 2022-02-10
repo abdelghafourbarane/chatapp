@@ -1,0 +1,12 @@
+.manage_rooms_page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  .main_container {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    padding: 3rem 1rem;
+  }
+}

@@ -81,9 +81,33 @@ const getRoomsId = () => {
   });
 };
 
+const deleteRoom = (room_id) => {
+  return new Promise((resolve, reject) => {
+    db.transaction((trx) => {
+      trx("message")
+        .where("room_id", room_id)
+        .del()
+        .then(() => {
+          return trx("room")
+            .where("id", room_id)
+            .del()
+            .returning("*")
+            .then((room) => {
+              resolve(room[0]); //it resolves room deleted
+            });
+        })
+        .then(trx.commit)
+        .catch(trx.rollback);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+};
+
 module.exports = {
   createRoom,
   addUserToRoom,
   getRoomsWithMessages,
   getRoomsId,
+  deleteRoom,
 };

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import GroupIcon from "@material-ui/icons/Group";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import SettingsRoundedIcon from "@material-ui/icons/SettingsRounded";
 
 import { UserContext } from "../context/user/user.context";
 import { useGetUserRequest } from "../hooks/requests";
@@ -55,6 +56,16 @@ function Room() {
                   <div className={styles.button_content}>
                     <span>Create Room</span>
                     <AddCircleOutlineIcon className={styles.button_icon} />
+                  </div>
+                </CustomButton>
+              </a>
+            </Link>
+            <Link href="/manageRooms">
+              <a>
+                <CustomButton variant="red">
+                  <div className={styles.button_content}>
+                    <span>Manage Room</span>
+                    <SettingsRoundedIcon className={styles.button_icon} />
                   </div>
                 </CustomButton>
               </a>
