@@ -73,6 +73,8 @@ function Messanger() {
     });
   }, []);
 
+  console.log("rooms: ", rooms);
+  console.log("user: ", user);
   return (
     <div className={styles.messanger_page}>
       <Header />
@@ -82,7 +84,7 @@ function Messanger() {
           socket={socket}
           roomClicked={roomClicked}
           messages={messagesToShow}
-          currentUsername={user.username}
+          currentUsername={user?.username}
         />
       </div>
     </div>

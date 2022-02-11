@@ -1,7 +1,7 @@
 import { userTypes } from "./user.types";
 
 export const INITIAL_STATE = {
-  user: {},
+  user: null,
   loading: false,
   error: null,
 };

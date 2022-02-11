@@ -26,3 +26,10 @@ export const addMessageToRoomSuccess = (room_id, message) => {
     payload: { room_id, message },
   };
 };
+
+export const deleteRoom = (room_id) => {
+  return {
+    type: roomsTypes.DELETE_ROOM,
+    payload: room_id,
+  };
+};

@@ -1,6 +1,6 @@
 import { roomsTypes } from "./rooms.types";
 
-import { useAddMessageToRoom } from "../../hooks/rooms.helpers";
+import { useAddMessageToRoom, useDeleteRoom } from "../../hooks/rooms.helpers";
 
 export const INITIAL_STATE = {
   rooms: [],
@@ -38,6 +38,12 @@ export const roomsReducer = (state = INITIAL_STATE, action) => {
           action.payload.room_id,
           action.payload.message
         ),
+      };
+
+    case roomsTypes.DELETE_ROOM:
+      return {
+        ...state,
+        rooms: useDeleteRoom(state.rooms, action.payload),
       };
 
     default:

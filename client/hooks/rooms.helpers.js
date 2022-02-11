@@ -1,8 +1,4 @@
 export const useAddMessageToRoom = (rooms, room_id, message) => {
-  console.log("inside useAddMessagesToRoom,rooms: ", rooms);
-  console.log("inside useAddMessagesToRoom,room_id: ", room_id);
-  console.log("inside useAddMessagesToRoom,message: ", message);
-
   return rooms.map((room) =>
     room.room_id === room_id
       ? {
@@ -11,4 +7,8 @@ export const useAddMessageToRoom = (rooms, room_id, message) => {
         }
       : room
   );
+};
+
+export const useDeleteRoom = (rooms, room_id) => {
+  return rooms.filter((room) => room.room_id !== room_id);
 };

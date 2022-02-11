@@ -19,7 +19,7 @@ function Header() {
   const handleLogoutClick = () => {
     useUserLogout().then(() => {
       window.localStorage.removeItem("token");
-      userDispatch(signOutSuccess);
+      userDispatch(signOutSuccess());
       router.push("/");
     });
   };
@@ -49,8 +49,8 @@ function Header() {
               className={styles.avatar_image}
             />
           </div>
-          <span className={styles.username}>{user.username}</span>
-          <span className={styles.email}>{user.email}</span>
+          <span className={styles.username}>{user?.username}</span>
+          <span className={styles.email}>{user?.email}</span>
         </div>
         <ExitToAppIcon
           className={styles.logout_icon}

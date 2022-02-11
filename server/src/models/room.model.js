@@ -36,8 +36,14 @@ const addUserToRoom = (user_id, room_id) => {
 
 const getRoomsWithMessages = () => {
   return new Promise((resolve, reject) => {
-    db.select("*")
+    db.select(
+      "room.id as room_id",
+      "users.username",
+      "room.created_by",
+      "room.room_name"
+    )
       .from("room")
+      .innerJoin("users", "users.id", "room.created_by")
       .then((rooms) => {
         const roomsToReturn = Promise.all(
           rooms.map((room) => {
@@ -47,14 +53,14 @@ const getRoomsWithMessages = () => {
                   FROM message AS m 
                   INNER JOIN users AS u ON u.id=m.sender_id WHERE m.room_id=?
                   ORDER BY sent_on`,
-                [room.id]
+                [room.room_id]
               )
               .then((messages) => {
                 return {
-                  room_id: room.id,
+                  room_id: room.room_id,
                   room_name: room.room_name,
                   created_at: room.created_at,
-                  created_by: room.created_by,
+                  created_by: room.username,
                   messages: messages.rows,
                 };
               });
