@@ -4,6 +4,7 @@ import { TextField } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
 import { UserContext } from "../context/user/user.context";
+import { RoomsContext } from "../context/rooms/rooms.context";
 
 import Header from "../components/header/Header";
 import CustomButton from "../components/custom-button/CustomButton";
@@ -11,12 +12,16 @@ import Spinner from "../components/spinner/Spinner";
 
 import { useRoomCreateRequest, useGetUserRequest } from "../hooks/requests";
 import { signInSuccess } from "../context/user/user.actions";
+import { addNewRoom } from "../context/rooms/rooms.actions";
 
 import styles from "../styles/createRoom.module.scss";
 import CustomModal from "../components/custom-modal/CustomModal";
 
 function CreateRoom() {
-  const { userDispatch } = useContext(UserContext);
+  const {
+    userDispatch,
+    userState: { user },
+  } = useContext(UserContext);
   //Check user login
   const router = useRouter();
   const [loginCheck, setLoginCheck] = useState(true);
@@ -35,10 +40,12 @@ function CreateRoom() {
   const handleRoomNameChange = (event) => {
     setRoomNameField(event.target.value);
   };
+  const { roomsDispatcher } = useContext(RoomsContext);
   const handleSubmit = (event) => {
     event.preventDefault();
     useRoomCreateRequest(roomNameField)
       .then((room) => {
+        roomsDispatcher(addNewRoom(room.data, user?.username));
         setRoomNameField("");
         setModalType("success");
         setModalMessage("Room created successfully");

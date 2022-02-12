@@ -40,6 +40,20 @@ export const roomsReducer = (state = INITIAL_STATE, action) => {
         ),
       };
 
+    case roomsTypes.ADD_NEW_ROOM:
+      return {
+        ...state,
+        rooms: [
+          ...state.rooms,
+          {
+            room_id: action.payload.room.id,
+            room_name: action.payload.room.room_name,
+            created_by: action.payload.username,
+            messages: [],
+          },
+        ],
+      };
+
     case roomsTypes.DELETE_ROOM:
       return {
         ...state,

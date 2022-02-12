@@ -87,7 +87,7 @@ const getRoomsId = () => {
   });
 };
 
-const deleteRoom = (room_id) => {
+const deleteRoom = (room_id, user_id) => {
   return new Promise((resolve, reject) => {
     db.transaction((trx) => {
       trx("message")
@@ -95,7 +95,7 @@ const deleteRoom = (room_id) => {
         .del()
         .then(() => {
           return trx("room")
-            .where("id", room_id)
+            .where({ id: room_id, created_by: user_id })
             .del()
             .returning("*")
             .then((room) => {

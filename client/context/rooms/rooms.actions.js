@@ -27,6 +27,13 @@ export const addMessageToRoomSuccess = (room_id, message) => {
   };
 };
 
+export const addNewRoom = (room, username) => {
+  return {
+    type: roomsTypes.ADD_NEW_ROOM,
+    payload: { room, username },
+  };
+};
+
 export const deleteRoom = (room_id) => {
   return {
     type: roomsTypes.DELETE_ROOM,
