@@ -3,75 +3,44 @@
   align-items: center;
   justify-content: center;
 
-  .modal_container {
-    display: flex;
-    flex-direction: column;
+  .modal_box {
     background-color: var(--background-white-color);
-    width: 30%;
     border-radius: 1rem;
+    width: 25vw;
     overflow: hidden;
-    // border: 1px solid var(--border-gray-color);
-    &.error {
-      .top_container {
-        background-color: var(--danger-color);
-      }
-    }
-    &.success {
-      .top_container {
-        background-color: var(--success-color);
-      }
-    }
-    .top_container {
-      //   height: 4rem;
-      position: relative;
-      display: flex;
-      flex-direction: row;
-      padding: 0.5rem;
-      align-items: center;
-      gap: 0.5rem;
-
-      .close_icon {
-        position: absolute;
-        top: 0.5rem;
-        right: 0.5rem;
-        color: rgba(255, 255, 255, 0.6);
-        cursor: pointer;
-        &:hover {
-          color: #fafafa;
-        }
-      }
-
-      .icon_title {
-        color: #fafafa;
-        font-size: 3rem;
-      }
-      .title {
-        font-size: 1.5rem;
-        color: #fafafa;
-      }
-    }
-    .middle_container {
-      min-height: 6rem;
-      display: flex;
-      align-items: center;
-      padding: 1rem 0.5rem;
-      span {
+    position: relative;
+    .header_container {
+      border-bottom: 1px solid var(--border-gray-color);
+      padding: 0 1rem;
+      h2 {
         color: var(--text-black);
       }
+      .close_icon {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 1.2rem;
+        color: var(--text-dark-gray);
+        cursor: pointer;
+        &:hover {
+          background-color: var(--border-gray-color);
+          color: var(--text-white-color);
+          border-radius: 50%;
+        }
+      }
     }
-    .line {
-      height: 1px;
-      background-color: #c4c4c4;
-    }
-    .bottom_container {
-      min-height: 3rem;
+    .main_container {
       display: flex;
-      flex-direction: row;
-      justify-content: right;
-      align-items: center;
-      padding: 1rem;
-      //   padding: 1rem;
+      flex-direction: column;
+      padding: 3rem 1rem;
+    }
 
+    .bottom_container {
+      border-top: 1px solid var(--border-gray-color);
+      padding: 1rem;
+      display: flex;
+      justify-content: right;
+      gap: 0.5rem;
       button {
         display: inline-block;
         outline: 0;
@@ -94,6 +63,14 @@
           background-color: #f3f4f6;
           border-color: #1b1f2326;
           transition-duration: 0.1s;
+        }
+
+        &.save_button {
+          background-color: var(--success-color);
+          color: var(--text-white-color);
+          &:hover {
+            background-color: #66d35e;
+          }
         }
       }
     }

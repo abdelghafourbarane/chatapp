@@ -40,3 +40,13 @@ export const deleteRoom = (room_id) => {
     payload: room_id,
   };
 };
+
+export const updateRoom = (room_id, room_name) => {
+  return {
+    type: roomsTypes.UPDATE_ROOM,
+    payload: {
+      room_id: room_id,
+      room_name: room_name,
+    },
+  };
+};

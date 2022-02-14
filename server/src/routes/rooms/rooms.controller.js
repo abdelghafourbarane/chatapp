@@ -2,6 +2,7 @@ const {
   createRoom,
   getRoomsWithMessages,
   deleteRoom,
+  updateRoom,
 } = require("../../models/room.model");
 
 const handleRoomAdd = (req, res) => {
@@ -44,8 +45,22 @@ const handleRoomDelete = (req, res) => {
     });
 };
 
+const handleRoomUpdate = (req, res) => {
+  const { userId } = req;
+  const { room_id } = req.query;
+  const { room_name } = req.body;
+  updateRoom(room_id, room_name, userId)
+    .then((room) => {
+      res.status(200).json(room);
+    })
+    .catch((err) => {
+      res.status(400).json("room has not been updated");
+    });
+};
+
 module.exports = {
   handleRoomAdd,
   handleGetRoomsWithMessages,
   handleRoomDelete,
+  handleRoomUpdate,
 };

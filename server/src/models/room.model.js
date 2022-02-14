@@ -110,10 +110,26 @@ const deleteRoom = (room_id, user_id) => {
   });
 };
 
+const updateRoom = (room_id, room_name, user_id) => {
+  return new Promise((resolve, reject) => {
+    db("room")
+      .where({ id: room_id, created_by: user_id })
+      .update({ room_name: room_name })
+      .returning("*")
+      .then((room) => {
+        resolve(room[0]);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
 module.exports = {
   createRoom,
   addUserToRoom,
   getRoomsWithMessages,
   getRoomsId,
   deleteRoom,
+  updateRoom,
 };

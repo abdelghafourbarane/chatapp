@@ -158,3 +158,28 @@ export const useDeleteRoomRequest = (room_id) => {
       });
   });
 };
+
+export const useUpdateRoomRequest = (room_id, room_name) => {
+  const token = window.localStorage.getItem("token");
+  return new Promise((resolve, reject) => {
+    axios
+      .put(
+        `${API_URI}/rooms?room_id=${room_id}`,
+        {
+          room_name: room_name,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: token,
+          },
+        }
+      )
+      .then((room) => {
+        resolve(room.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};

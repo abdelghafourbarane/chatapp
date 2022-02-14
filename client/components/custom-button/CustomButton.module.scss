@@ -10,6 +10,7 @@
   width: 100%;
   letter-spacing: 0.1rem;
   font-weight: medium;
+  transition: all 0.3s ease;
 
   &.blue {
     background-color: var(--primary-blue-color);

@@ -55,11 +55,8 @@ function manageRooms() {
         });
     }
   }, []);
-  console.log(
-    "rooms: ",
-    rooms.filter((room) => room.created_by === user?.username)
-  );
-  console.log("user: ", user);
+
+  console.log(rooms);
 
   return loginCheck ? (
     <Spinner />
@@ -68,8 +65,6 @@ function manageRooms() {
       <Header />
       <div className={styles.main_container}>
         <div className={styles.rooms_container}>
-          {/* <ManageRoomPreview room_name="react.js room" />
-          <ManageRoomPreview room_name="react.js room" /> */}
           {rooms
             .filter((room) => room.created_by === user?.username)
             .map((room) => (
