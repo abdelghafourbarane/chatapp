@@ -4,8 +4,9 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.6);
-  padding: 0.5rem 4rem;
+  padding: 0.5rem 6rem;
   z-index: 10;
+
   .image_wrapper {
     height: 4rem;
     width: 4rem;
@@ -16,10 +17,13 @@
     flex-direction: row;
     align-items: center;
     gap: 4rem;
+    position: relative;
+
     .avatar_container {
       display: flex;
       flex-direction: column;
       align-items: center;
+      cursor: pointer;
 
       .username {
         font-size: 0.8rem;
@@ -35,15 +39,63 @@
         height: 2rem;
         width: 2rem;
       }
-    }
+      .dropdown_menu_container {
+        position: absolute;
+        border: 1px solid var(--border-gray-color);
+        top: 120%;
+        right: 0;
+        background-color: var(--background-white-color);
+        border-radius: 0.5rem 0 0.5rem 0.5rem;
+        box-shadow: rgba(0, 0, 0, 0.2) 0 2px 4px;
+        display: flex;
+        flex-direction: column;
+        cursor: default;
+        overflow: hidden;
+        .profile_menu_container {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 1rem;
+          font-size: 1rem;
+          color: var(--text-black);
+          padding: 0.5rem;
+          border-bottom: 1px solid var(--border-gray-color);
+          .avatar_wrapper {
+            height: 2.5rem;
+            width: 2.5rem;
+            display: flex;
+            align-items: center;
+          }
+          .infos_container {
+            display: flex;
+            flex-direction: column;
+          }
+        }
 
-    .logout_icon {
-      font-size: 3rem;
-      color: var(--primary-blue-color);
-      cursor: pointer;
-
-      &:hover {
-        color: var(--primary-red-color);
+        .dropdown_section_container {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          padding: 0.7rem;
+          border-bottom: 1px solid var(--border-gray-color);
+          h4 {
+            margin: 0;
+            font-weight: medium;
+            color: var(--text-black);
+          }
+          .item_container {
+            span {
+              font-size: 0.9rem;
+              color: var(--text-dark-gray);
+            }
+            cursor: pointer;
+            &:hover {
+              span {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
       }
     }
   }

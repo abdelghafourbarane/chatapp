@@ -14,6 +14,20 @@ const getUserHash = (username) => {
   });
 };
 
+const getUserHashById = (user_id) => {
+  return new Promise((resolve, reject) => {
+    db.select("hash")
+      .from("login")
+      .where("id", "=", user_id)
+      .then((response) => {
+        resolve(response[0].hash);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
 // get user from users table using by id
 const getUser = (id) => {
   return new Promise((resolve, reject) => {
@@ -61,8 +75,29 @@ const addNewUser = (username, email, hash) => {
   });
 };
 
+const updateUserPassword = (new_hash, user_id) => {
+  return new Promise((resolve, reject) => {
+    db("login")
+      .where({
+        id: user_id,
+      })
+      .update({
+        hash: new_hash,
+      })
+      .returning("id")
+      .then((response) => {
+        resolve(response[0].id);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
 module.exports = {
   addNewUser,
   getUserHash,
   getUser,
+  updateUserPassword,
+  getUserHashById,
 };

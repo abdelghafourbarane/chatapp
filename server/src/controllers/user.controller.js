@@ -2,9 +2,16 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 
 const { redisClient } = require("../services/redis");
-const { addNewUser, getUserHash, getUser } = require("../models/user.model");
+const {
+  addNewUser,
+  getUserHash,
+  getUser,
+  getUserHashById,
+  updateUserPassword,
+} = require("../models/user.model");
 
 dotenv.config();
+
 const handleUserRegister = (req, res, bcrypt) => {
   const { email, password, username } = req.body;
   if (!email || !username || !password) {
@@ -79,6 +86,36 @@ const signToken = (payload) => {
   return jwt.sign(payload, process.env.JWT_SECRET);
 };
 
+const handlePasswordUpdate = (req, res, bcrypt) => {
+  const { new_password, old_password } = req.body;
+  const { userId } = req;
+  const token = req.headers.authorization;
+  getUserHashById(userId)
+    .then((current_hash) => {
+      const isValid = bcrypt.compareSync(old_password, current_hash);
+      //if hashes match
+      if (isValid) {
+        const new_hash = bcrypt.hashSync(
+          new_password,
+          parseInt(process.env.BCRYPT_SALT)
+        );
+        updateUserPassword(new_hash, userId).then((user_id) => {
+          redisClient
+            .del(token)
+            .then(() => res.status(200).json("password updated successfully"))
+            .catch((err) => {
+              res.status(400).json("error with token delete");
+            });
+        });
+      } else {
+        res.status(400).json("invalid old password");
+      }
+    })
+    .catch((err) => {
+      res.status(400).json("err getHashById,user_id:" + err);
+    });
+};
+
 const saveAuthToken = (user) => {
   return new Promise((resolve, reject) => {
     const { username, email, id } = user;
@@ -98,4 +135,5 @@ module.exports = {
   handleUserRegister,
   handleUserLogin,
   handleUserLogout,
+  handlePasswordUpdate,
 };

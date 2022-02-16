@@ -15,7 +15,7 @@ dotenv.config();
 
 const app = express();
 
-// app.use(morgan());
+app.use(morgan());
 app.use(cors());
 app.use(
   bodyParser.urlencoded({

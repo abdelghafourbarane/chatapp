@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Image from "next/image";
 import router from "next/router";
 import Link from "next/link";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import { useUserLogout } from "../../hooks/requests";
 import { UserContext } from "../../context/user/user.context";
@@ -24,6 +23,8 @@ function Header() {
     });
   };
 
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+
   return (
     <header className={styles.header}>
       <Link href="/">
@@ -40,7 +41,12 @@ function Header() {
       </Link>
 
       <div className={styles.profile_container}>
-        <div className={styles.avatar_container}>
+        <div
+          className={styles.avatar_container}
+          onClick={() => {
+            setShowProfileMenu(!showProfileMenu);
+          }}
+        >
           <div className={styles.avatar_wrapper}>
             <Image
               src="/static/user.png"
@@ -50,12 +56,43 @@ function Header() {
             />
           </div>
           <span className={styles.username}>{user?.username}</span>
-          <span className={styles.email}>{user?.email}</span>
+          {showProfileMenu ? (
+            <div className={styles.dropdown_menu_container}>
+              <div className={styles.profile_menu_container}>
+                <div className={styles.avatar_wrapper}>
+                  <Image
+                    src="/static/user.png"
+                    height={512}
+                    width={512}
+                    className={styles.avatar_image}
+                  />
+                </div>
+
+                <div className={styles.infos_container}>
+                  <span>{user?.username}</span>
+                  <span>{user?.email}</span>
+                </div>
+              </div>
+              <div className={styles.dropdown_section_container}>
+                <h4>Account</h4>
+                <div className={styles.item_container}>
+                  <span>Edit Password</span>
+                </div>
+                <div className={styles.item_container}>
+                  <span>Edit Profile</span>
+                </div>
+              </div>
+              <div
+                className={styles.dropdown_section_container}
+                onClick={handleLogoutClick}
+              >
+                <div className={styles.item_container}>
+                  <span>Logout</span>
+                </div>
+              </div>
+            </div>
+          ) : null}
         </div>
-        <ExitToAppIcon
-          className={styles.logout_icon}
-          onClick={handleLogoutClick}
-        />
       </div>
     </header>
   );
