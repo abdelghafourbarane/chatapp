@@ -8,6 +8,7 @@ const {
   getUser,
   getUserHashById,
   updateUserPassword,
+  updateUsername,
 } = require("../models/user.model");
 
 dotenv.config();
@@ -82,10 +83,6 @@ const handleUserLogout = (req, res) => {
   }
 };
 
-const signToken = (payload) => {
-  return jwt.sign(payload, process.env.JWT_SECRET);
-};
-
 const handlePasswordUpdate = (req, res, bcrypt) => {
   const { new_password, old_password } = req.body;
   const { userId } = req;
@@ -116,6 +113,26 @@ const handlePasswordUpdate = (req, res, bcrypt) => {
     });
 };
 
+const handleUsernameUpdate = (req, res) => {
+  const { userId } = req;
+  const { username } = req.body;
+  const { authorization } = req.headers;
+  updateUsername(userId, username)
+    .then((user) => {
+      redisClient.del(authorization).then(() => {
+        saveAuthToken(user).then((token) => {
+          res.status(200).json(token);
+        });
+      });
+    })
+    .catch((err) => {
+      res.status(400).json("An error occured during username update");
+    });
+};
+
+const signToken = (payload) => {
+  return jwt.sign(payload, process.env.JWT_SECRET);
+};
 const saveAuthToken = (user) => {
   return new Promise((resolve, reject) => {
     const { username, email, id } = user;
@@ -136,4 +153,5 @@ module.exports = {
   handleUserLogin,
   handleUserLogout,
   handlePasswordUpdate,
+  handleUsernameUpdate,
 };

@@ -183,3 +183,52 @@ export const useUpdateRoomRequest = (room_id, room_name) => {
       });
   });
 };
+
+export const useUpdatePasswordRequest = (old_password, new_password) => {
+  const token = window.localStorage.getItem("token");
+  return new Promise((resolve, reject) => {
+    axios
+      .put(
+        `${API_URI}/profile/change_password`,
+
+        { old_password: old_password, new_password: new_password },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: token,
+          },
+        }
+      )
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export const useUpdateUsernameRequest = (username) => {
+  const token = window.localStorage.getItem("token");
+  return new Promise((resolve, reject) => {
+    axios
+      .put(
+        `${API_URI}/profile/change_username`,
+        {
+          username: username,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: token,
+          },
+        }
+      )
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};

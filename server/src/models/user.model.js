@@ -94,10 +94,28 @@ const updateUserPassword = (new_hash, user_id) => {
   });
 };
 
+const updateUsername = (user_id, username) => {
+  return new Promise((resolve, reject) => {
+    db("users")
+      .update({
+        username: username,
+      })
+      .where("id", "=", user_id)
+      .returning(["username", "email", "id"])
+      .then((user) => {
+        resolve(user[0]);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
 module.exports = {
   addNewUser,
   getUserHash,
   getUser,
   updateUserPassword,
   getUserHashById,
+  updateUsername,
 };

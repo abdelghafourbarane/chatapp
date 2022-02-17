@@ -1,7 +1,10 @@
 const bcrypt = require("bcrypt");
 
 const { getUser } = require("../../models/user.model");
-const { handlePasswordUpdate } = require("../../controllers/user.controller");
+const {
+  handlePasswordUpdate,
+  handleUsernameUpdate,
+} = require("../../controllers/user.controller");
 
 const getCurrentUser = (req, res) => {
   const { userId } = req; // the userid is set by the middleware
@@ -18,7 +21,12 @@ const updateCurrentPassword = (req, res) => {
   handlePasswordUpdate(req, res, bcrypt);
 };
 
+const updateUsername = (req, res) => {
+  handleUsernameUpdate(req, res);
+};
+
 module.exports = {
   getCurrentUser,
   updateCurrentPassword,
+  updateUsername,
 };

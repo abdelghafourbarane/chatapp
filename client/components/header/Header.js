@@ -7,6 +7,8 @@ import { useUserLogout } from "../../hooks/requests";
 import { UserContext } from "../../context/user/user.context";
 import { signOutSuccess } from "../../context/user/user.actions";
 
+import ChangePasswordModal from "../change-password-modal/ChangePasswordModal";
+
 import styles from "./Header.module.scss";
 
 function Header() {
@@ -24,6 +26,7 @@ function Header() {
   };
 
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [showChangePasswordModal, setShowPasswordModal] = useState(false);
 
   return (
     <header className={styles.header}>
@@ -75,7 +78,12 @@ function Header() {
               </div>
               <div className={styles.dropdown_section_container}>
                 <h4>Account</h4>
-                <div className={styles.item_container}>
+                <div
+                  className={styles.item_container}
+                  onClick={() => {
+                    setShowPasswordModal(true);
+                  }}
+                >
                   <span>Edit Password</span>
                 </div>
                 <div className={styles.item_container}>
@@ -94,6 +102,12 @@ function Header() {
           ) : null}
         </div>
       </div>
+      <ChangePasswordModal
+        open={showChangePasswordModal}
+        onClose={() => {
+          setShowPasswordModal(false);
+        }}
+      />
     </header>
   );
 }

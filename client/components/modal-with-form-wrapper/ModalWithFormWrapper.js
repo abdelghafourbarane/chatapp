@@ -4,14 +4,7 @@ import CloseIcon from "@material-ui/icons/Close";
 
 import styles from "./ModalWithFormWrapper.module.scss";
 
-function ModalWithFormWrapper({
-  children,
-  open,
-  onClose,
-  room_name,
-  title,
-  onSave,
-}) {
+function ModalWithFormWrapper({ children, open, onClose, title, onSave }) {
   return (
     <Modal open={open} onClose={onClose} className={styles.modal}>
       <div className={styles.modal_box}>
