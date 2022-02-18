@@ -8,6 +8,7 @@ import { UserContext } from "../../context/user/user.context";
 import { signOutSuccess } from "../../context/user/user.actions";
 
 import ChangePasswordModal from "../change-password-modal/ChangePasswordModal";
+import ChangeProfileModal from "../change-profile-modal/ChangeProfileModal";
 
 import styles from "./Header.module.scss";
 
@@ -27,6 +28,7 @@ function Header() {
 
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [showChangePasswordModal, setShowPasswordModal] = useState(false);
+  const [showChangeProfileModal, setShowChangeProfileModal] = useState(false);
 
   return (
     <header className={styles.header}>
@@ -86,7 +88,12 @@ function Header() {
                 >
                   <span>Edit Password</span>
                 </div>
-                <div className={styles.item_container}>
+                <div
+                  className={styles.item_container}
+                  onClick={() => {
+                    setShowChangeProfileModal(true);
+                  }}
+                >
                   <span>Edit Profile</span>
                 </div>
               </div>
@@ -106,6 +113,12 @@ function Header() {
         open={showChangePasswordModal}
         onClose={() => {
           setShowPasswordModal(false);
+        }}
+      />
+      <ChangeProfileModal
+        open={showChangeProfileModal}
+        onClose={() => {
+          setShowChangeProfileModal(false);
         }}
       />
     </header>

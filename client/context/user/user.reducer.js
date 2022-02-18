@@ -33,6 +33,12 @@ export const UserReducer = (state = INITIAL_STATE, action) => {
         user: null,
       };
     }
+    case userTypes.CHANGE_USERNAME: {
+      return {
+        ...state,
+        user: { ...state.user, username: action.payload },
+      };
+    }
     default:
       return state;
   }

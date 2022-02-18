@@ -25,3 +25,10 @@ export const signOutSuccess = () => {
     type: userTypes.SIGN_OUT_SUCCESS,
   };
 };
+
+export const changeUsernameSuccess = (username) => {
+  return {
+    type: userTypes.CHANGE_USERNAME,
+    payload: username,
+  };
+};
