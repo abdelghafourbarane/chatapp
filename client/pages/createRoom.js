@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { TextField } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+// import Alert from "@material-ui/lab/Alert";
+// import CloseIcon from "@material-ui/icons/Close";
 
 import { UserContext } from "../context/user/user.context";
 import { RoomsContext } from "../context/rooms/rooms.context";
@@ -15,7 +17,8 @@ import { signInSuccess } from "../context/user/user.actions";
 import { addNewRoom } from "../context/rooms/rooms.actions";
 
 import styles from "../styles/createRoom.module.scss";
-import CustomModal from "../components/custom-modal/CustomModal";
+import MessageModal from "../components/message-modal/MessageModal";
+// import CustomModal from "../components/custom-modal/CustomModal";
 
 function CreateRoom() {
   const {
@@ -48,7 +51,7 @@ function CreateRoom() {
         roomsDispatcher(addNewRoom(room.data, user?.username));
         setRoomNameField("");
         setModalType("success");
-        setModalMessage("Room created successfully");
+        setModalMessage(`Room '${room.data.room_name}' created successfully`);
         setOpenedModal(true);
       })
       .catch((err) => {
@@ -70,13 +73,22 @@ function CreateRoom() {
     <Spinner />
   ) : (
     <div className={styles.create_room_page}>
-      <CustomModal
+      {/* <CustomModal
         type={modalType}
         open={openedModal}
         handleCloseModal={handleCloseModal}
         message={modalMessage}
+      /> */}
+      <MessageModal
+        title="Success"
+        type={modalType}
+        open={openedModal}
+        onClose={handleCloseModal}
+        content={modalMessage}
       />
+
       <Header />
+      {/* <Alert>this is an alert</Alert> */}
       <div className={styles.main_container}>
         <form
           method="post"

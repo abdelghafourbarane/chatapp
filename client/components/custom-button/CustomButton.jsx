@@ -2,7 +2,14 @@ import React from "react";
 
 import styles from "./CustomButton.module.scss";
 
-function CustomButton({ children, variant, rounded, blured, handleClick }) {
+function CustomButton({
+  children,
+  variant,
+  rounded,
+  blured,
+  handleClick,
+  thin,
+}) {
   return (
     <button
       className={`${styles.custom_button} ${
@@ -10,7 +17,8 @@ function CustomButton({ children, variant, rounded, blured, handleClick }) {
       } ${variant === "green" ? styles.green : ""} ${
         variant === "blue" ? styles.blue : ""
       } ${variant === "danger" ? styles.danger : ""}
-      ${rounded ? styles.rounded : ""} ${blured ? styles.blured : ""}`}
+      ${rounded ? styles.rounded : ""} ${blured ? styles.blured : ""}
+      ${thin ? styles.thin : ""}`}
       onClick={handleClick}
     >
       {children}

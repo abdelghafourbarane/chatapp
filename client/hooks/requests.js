@@ -20,16 +20,21 @@ export const useLoginRequest = (username, password) => {
 };
 
 export const useRegisterRequest = (username, email, password) => {
-  axios
-    .post(`${API_URI}/register`, {
-      username,
-      email,
-      password,
-    })
-    .then((response) => {
-      console.log(response.data.token);
-      window.localStorage.setItem("token", response.data.token);
-    });
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`${API_URI}/register`, {
+        username,
+        email,
+        password,
+      })
+      .then((response) => {
+        window.localStorage.setItem("token", response.data.token);
+        resolve(response.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
 };
 
 export const useGetUserRequest = () => {

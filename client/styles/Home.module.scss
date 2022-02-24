@@ -2,13 +2,13 @@
   min-height: 100vh;
   display: flex;
   flex: 1;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-
+  padding: 0 7rem;
   .image_wrapper {
-    height: 150px;
-    width: 150px;
+    height: auto;
+    width: 50vw;
   }
 
   .app_name {

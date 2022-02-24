@@ -1,0 +1,66 @@
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .main_container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background-white-color);
+    width: 80vw;
+    height: 90vh;
+    padding: 0 3rem;
+    .close_icon {
+      position: absolute;
+      cursor: pointer;
+      color: var(--border-gray-color);
+      top: 0.5rem;
+      right: 0.5rem;
+      &:hover {
+        color: var(--text-black);
+      }
+      // font-size: 0.9rem;
+    }
+    .card_container {
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      // position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: var(--background-white-color);
+      width: 26vw;
+      gap: 1.5rem;
+      border-radius: 0.5rem;
+      padding: 2rem 0;
+      span {
+        font-size: 0.9rem;
+      }
+      .link {
+        color: var(--primary-blue-color);
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .header {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        h1 {
+          font-weight: 500;
+          color: var(--text-black);
+        }
+      }
+      .inputs_container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 0 3rem;
+        gap: 1rem;
+      }
+    }
+  }
+}

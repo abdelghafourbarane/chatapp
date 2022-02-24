@@ -67,6 +67,11 @@
     width: auto;
   }
 
+  &.thin {
+    font-size: 1.3rem;
+    font-weight: 400;
+  }
+
   &.blured {
     border: none;
   }
